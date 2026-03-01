@@ -98,7 +98,12 @@
                         </select>
                         <span class="material-icons-round absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
                     </div>
-                    <input id="toValue" type="number" readonly class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 text-2xl font-semibold text-primary focus:outline-none transition-all" placeholder="결과"/>
+                    <div class="relative flex items-center">
+                        <input id="toValue" type="number" readonly class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 pr-14 text-2xl font-semibold text-primary focus:outline-none transition-all" placeholder="결과"/>
+                        <button onclick="copyResult()" title="결과 복사" class="absolute right-2 p-2 text-slate-400 hover:text-primary transition-colors focus:outline-none">
+                            <span class="material-icons-round">content_copy</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,9 +130,6 @@
 
         <!-- 유틸리티 버튼 -->
         <div class="flex justify-center gap-3 pt-4">
-            <button onclick="copyResult()" title="결과 복사" class="p-3 bg-white dark:bg-slate-800 text-slate-400 rounded-xl border border-slate-200 dark:border-slate-700 hover:text-primary transition-colors">
-                <span class="material-icons-round">content_copy</span>
-            </button>
             <button onclick="resetValues()" title="초기화" class="p-3 bg-white dark:bg-slate-800 text-slate-400 rounded-xl border border-slate-200 dark:border-slate-700 hover:text-primary transition-colors">
                 <span class="material-icons-round">refresh</span>
             </button>
