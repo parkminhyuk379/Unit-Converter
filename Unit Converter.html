@@ -161,7 +161,8 @@
             temperature: {
                 units: {
                     C: { name: "섭씨 (°C)" },
-                    F: { name: "화씨 (°F)" }
+                    F: { name: "화씨 (°F)" },
+                    K: { name: "켈빈 (K)" }
                 },
                 default: ['C', 'F']
             },
@@ -270,10 +271,17 @@
             if (currentCategory === 'temperature') {
                 if (fromUnit === toUnit) {
                     result = fromValue;
-                } else if (fromUnit === 'C' && toUnit === 'F') {
-                    result = (fromValue * 9/5) + 32;
-                } else if (fromUnit === 'F' && toUnit === 'C') {
-                    result = (fromValue - 32) * 5/9;
+                } else {
+                    // 모든 입력을 먼저 섭씨(C)로 변환
+                    let celsius;
+                    if (fromUnit === 'C') celsius = fromValue;
+                    else if (fromUnit === 'F') celsius = (fromValue - 32) * 5/9;
+                    else if (fromUnit === 'K') celsius = fromValue - 273.15;
+
+                    // 섭씨(C)에서 목표 단위로 변환
+                    if (toUnit === 'C') result = celsius;
+                    else if (toUnit === 'F') result = (celsius * 9/5) + 32;
+                    else if (toUnit === 'K') result = celsius + 273.15;
                 }
             } else {
                 const data = unitData[currentCategory].units;
