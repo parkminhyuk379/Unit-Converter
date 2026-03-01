@@ -4,59 +4,122 @@
     <meta charset="UTF-8">
     <title>심플 단위 변환기</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f4f4f9; }
-        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 350px; }
-        h2 { margin-top: 0; color: #333; font-size: 1.2rem; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        h1 { color: #1c1e21; margin-bottom: 30px; }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            max-width: 900px;
+            width: 100%;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            width: 350px;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        h2 { 
+            margin-top: 0; 
+            color: #007bff; 
+            font-size: 1.25rem; 
+            border-bottom: 2px solid #e7f3ff; 
+            padding-bottom: 12px; 
+            margin-bottom: 20px; 
+        }
         .input-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: #666; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        .result { background: #e7f3ff; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; color: #007bff; }
+        label { display: block; margin-bottom: 0.8rem; font-size: 0.95rem; color: #4b4f56; font-weight: 600; }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #dddfe2; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: #007bff; box-shadow: 0 0 0 2px rgba(0,123,255,0.25); }
+        .result { 
+            background: #f8f9fa; 
+            padding: 18px; 
+            border-radius: 10px; 
+            text-align: center; 
+            font-weight: bold; 
+            color: #1c1e21; 
+            min-height: 1.4rem;
+            border: 1px dashed #ced4da;
+        }
+        .highlight { color: #007bff; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>길이 변환기 (cm ↔ inch)</h2>
-    
-    <div class="input-group">
-        <label>값 입력</label>
-        <input type="number" id="inputValue" placeholder="숫자를 입력하세요" oninput="convert()">
+<h1>📏 심플 단위 변환기</h1>
+
+<div class="container">
+    <!-- 센티미터 -> 인치 -->
+    <div class="card">
+        <h2>센티미터(cm) → 인치(in)</h2>
+        <div class="input-group">
+            <label>센티미터(cm) 입력</label>
+            <input type="number" id="cmInput" placeholder="예: 10" oninput="convertCmToInch()">
+        </div>
+        <div class="result" id="inchResult">
+            숫자를 입력하면 변환됩니다.
+        </div>
     </div>
 
-    <div class="input-group">
-        <label>단위 선택</label>
-        <select id="unitType" onchange="convert()">
-            <option value="cmToInch">센티미터(cm) → 인치(inch)</option>
-            <option value="inchToCm">인치(inch) → 센티미터(cm)</option>
-        </select>
-    </div>
-
-    <div class="result" id="resultDisplay">
-        결과가 여기에 표시됩니다.
+    <!-- 인치 -> 센티미터 -->
+    <div class="card">
+        <h2>인치(in) → 센티미터(cm)</h2>
+        <div class="input-group">
+            <label>인치(in) 입력</label>
+            <input type="number" id="inchInput" placeholder="예: 1" oninput="convertInchToCm()">
+        </div>
+        <div class="result" id="cmResult">
+            숫자를 입력하면 변환됩니다.
+        </div>
     </div>
 </div>
 
 <script>
-    function convert() {
-        const value = document.getElementById('inputValue').value;
-        const type = document.getElementById('unitType').value;
-        const display = document.getElementById('resultDisplay');
+    function convertCmToInch() {
+        const value = document.getElementById('cmInput').value;
+        const display = document.getElementById('inchResult');
 
-        if (value === "") {
-            display.innerText = "숫자를 입력해주세요.";
+        if (value === "" || value === null) {
+            display.innerText = "숫자를 입력하면 변환됩니다.";
             return;
         }
 
-        let result;
-        if (type === "cmToInch") {
-            // 1 cm = 0.393701 inch
-            result = (value * 0.393701).toFixed(2) + " inch";
-        } else {
-            // 1 inch = 2.54 cm
-            result = (value * 2.54).toFixed(2) + " cm";
+        const result = (value * 0.393701).toFixed(2);
+        display.innerHTML = `${value} cm = <span class="highlight">${result} inch</span>`;
+    }
+
+    function convertInchToCm() {
+        const value = document.getElementById('inchInput').value;
+        const display = document.getElementById('cmResult');
+
+        if (value === "" || value === null) {
+            display.innerText = "숫자를 입력하면 변환됩니다.";
+            return;
         }
 
-        display.innerText = "결과: " + result;
+        const result = (value * 2.54).toFixed(2);
+        display.innerHTML = `${value} inch = <span class="highlight">${result} cm</span>`;
     }
 </script>
 
