@@ -109,7 +109,7 @@
         </div>
 
         <!-- 카테고리 탭 -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="categoryTabs">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="categoryTabs">
             <button onclick="changeCategory('length')" data-category="length" class="category-btn flex flex-col items-center justify-center gap-2 p-4 bg-primary text-white rounded-2xl shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
                 <span class="material-icons-round">straighten</span>
                 <span class="font-medium">길이</span>
@@ -125,6 +125,10 @@
             <button onclick="changeCategory('pressure')" data-category="pressure" class="category-btn flex flex-col items-center justify-center gap-2 p-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary transition-all">
                 <span class="material-icons-round">compress</span>
                 <span class="font-medium">압력</span>
+            </button>
+            <button onclick="changeCategory('data')" data-category="data" class="category-btn flex flex-col items-center justify-center gap-2 p-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:text-primary transition-all">
+                <span class="material-icons-round">storage</span>
+                <span class="font-medium">데이터</span>
             </button>
         </div>
     </div>
@@ -181,6 +185,18 @@
                     atm: { name: "기압 (atm)", rate: 101325 }
                 },
                 default: ['bar', 'psi']
+            },
+            data: {
+                units: {
+                    bit: { name: "비트 (bit)", rate: 0.125 },
+                    byte: { name: "바이트 (Byte)", rate: 1 },
+                    kb: { name: "킬로바이트 (KB)", rate: 1024 },
+                    mb: { name: "메가바이트 (MB)", rate: 1024**2 },
+                    gb: { name: "기가바이트 (GB)", rate: 1024**3 },
+                    tb: { name: "테라바이트 (TB)", rate: 1024**4 },
+                    pb: { name: "페타바이트 (PB)", rate: 1024**5 }
+                },
+                default: ['mb', 'gb']
             }
         };
 
